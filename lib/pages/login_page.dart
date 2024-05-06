@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_textfield.dart';
+import 'package:food_delivery_app/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   /* ------------------------------- Variable ------------------------------ */
@@ -25,6 +26,20 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  /* ------------------------------- Function ------------------------------ */
+
+  /// Xử lý phần đăng nhập
+  void login() {
+    // Điền phần xác thực vào đây
+
+    // Sau đó chuyển hướng đến trang HomePage
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ));
+  }
 
   /* ----------------------------------------------------------------------- */
   @override
@@ -68,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 25),
             // SIGN IN (BUTTON)
             MyButton(
-              onTap: () {},
+              onTap: login,
               text: 'Sign In',
             ),
             const SizedBox(height: 25),
