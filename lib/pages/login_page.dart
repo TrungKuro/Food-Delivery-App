@@ -3,12 +3,18 @@ import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_textfield.dart';
 
 class LoginPage extends StatefulWidget {
+  /* ------------------------------- Variable ------------------------------ */
+
   final void Function()? onTap;
+
+  /* ----------------------------------------------------------------------- */
 
   const LoginPage({
     super.key,
     required this.onTap,
   });
+
+  /* ----------------------------------------------------------------------- */
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -24,10 +30,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /* ----------------------------- Top App ----------------------------- */
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).colorScheme.background,
-      // ),
       /* ---------------------------- Bottom App --------------------------- */
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
