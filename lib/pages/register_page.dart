@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /* ---------------------------- Bottom App --------------------------- */
+      /* ----------------------------- Body App ---------------------------- */
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: Column(
