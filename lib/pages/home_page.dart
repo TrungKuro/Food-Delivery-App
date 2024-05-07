@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:food_delivery_app/components/my_current_location.dart';
 import 'package:food_delivery_app/components/my_description_box.dart';
 import 'package:food_delivery_app/components/my_drawer.dart';
@@ -61,9 +62,18 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         body: TabBarView(
           controller: _tabController,
           children: [
-            Text('Home'),
-            Text('Setting'),
-            Text('Person'),
+            ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) => const Text('Home'),
+            ),
+            ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) => const Text('Settings'),
+            ),
+            ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) => const Text('Person'),
+            ),
           ],
         ),
       ),
