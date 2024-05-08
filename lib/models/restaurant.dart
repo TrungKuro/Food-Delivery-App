@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/models/cart_item.dart';
 import 'package:food_delivery_app/models/food.dart';
 
 class Restaurant extends ChangeNotifier {
@@ -282,22 +284,88 @@ class Restaurant extends ChangeNotifier {
 
   /* ------------------------------ OPETATION ------------------------------ */
 
+  /// User Cart
+  final List<CartItem> _cart = [];
+
   /// Add to Cart
-  /// 
+  void addToCart(Food food, List<Addon> selectedAddons) {
+    // See if there is a Cart item already with the same food and selected addons
+    CartItem? carItem = _cart.firstWhereOrNull((item) {
+      // Check if the food items are the same
+      bool isSameFood = item.food == food;
+      // Check if the list of selected addons are the same
+      bool isSameAddons = const ListEquality().equals(item.selectedAddons, selectedAddons);
+
+      return isSameFood && isSameAddons;
+    });
+
+    // If item already exists, increase it's quantity
+    if (carItem != null) {
+      carItem.quantity++;
+    }
+    // Otherwise, add a new cart item to the cart
+    else {
+      _cart.add(CartItem(
+        food: food,
+        selectedAddons: selectedAddons,
+      ));
+    }
+    // Update UI
+    notifyListeners();
+  }
+
   /// Remove from Cart
-  /// 
+  void removeFromCart(CartItem cardItem) {
+    // Find that item in list cart
+    int carIndex = _cart.indexOf(cardItem);
+    // If have, then check quantity
+    if (carIndex != 1) {
+      // If quantity have more one, then decrease it
+      if (_cart[carIndex].quantity > 1) {
+        _cart[carIndex].quantity--;
+      }
+      // Otherwise, remove that item from cart
+      else {
+        _cart.removeAt(carIndex);
+      }
+      // Update UI
+      notifyListeners();
+    }
+  }
+
   /// Get total Price of Cart
-  /// 
+  double getTotalPrice() {
+    double total = 0.0;
+    for (CartItem cartItem in _cart) {
+      double itemTotal = cartItem.food.price;
+      for (Addon addon in cartItem.selectedAddons) {
+        itemTotal += addon.price;
+      }
+      total += itemTotal * cartItem.quantity;
+    }
+    return total;
+  }
+
   /// Get total Number of Items in Cart
-  /// 
+  int getTotalItemCount() {
+    int totalItemCount = 0;
+    for (CartItem cartItem in _cart) {
+      totalItemCount += cartItem.quantity;
+    }
+    return totalItemCount;
+  }
+
   /// Clear Cart
-  /// 
+  void clearCart() {
+    _cart.clear();
+    notifyListeners();
+  }
 
   /* -------------------------------- HELPER ------------------------------- */
 
   /// Generate a Receipt
-  /// 
+  ///
   /// Format double value into money
-  /// 
+  ///
   /// Format list of addons into a string summary
 }
