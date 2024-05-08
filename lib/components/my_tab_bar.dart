@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/models/food.dart';
 
 class MyTabBar extends StatelessWidget {
   /* ------------------------------- Variable ------------------------------ */
 
   final TabController tabController;
+
+  /* ------------------------------- Function ------------------------------ */
+
+  /// Tạo danh sách Tab các Category món ăn
+  List<Tab> _buildCategoryTabs() {
+    return FoodCategory.values.map((category) {
+      return Tab(
+        text: category.toString().split('.').last,
+      );
+    }).toList();
+  }
 
   /* ----------------------------------------------------------------------- */
 
@@ -18,26 +30,7 @@ class MyTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabBar(
       controller: tabController,
-      tabs: const [
-        // 1st TAB
-        Tab(
-          child: Icon(
-            Icons.home,
-          ),
-        ),
-        // 2nd TAB
-        Tab(
-          child: Icon(
-            Icons.settings,
-          ),
-        ),
-        // 3rd TAB
-        Tab(
-          child: Icon(
-            Icons.person,
-          ),
-        ),
-      ],
+      tabs: _buildCategoryTabs(),
     );
   }
 }
