@@ -280,6 +280,9 @@ class Restaurant extends ChangeNotifier {
   /// Lấy data các món ăn
   List<Food> get menu => _menu;
 
+  /// Lấy data các món trong giỏ hàng
+  List<CartItem> get cart => _cart;
+
   /* -------------------------------- SETTER ------------------------------- */
 
   /* ------------------------------ OPETATION ------------------------------ */
@@ -315,18 +318,18 @@ class Restaurant extends ChangeNotifier {
   }
 
   /// Remove from Cart
-  void removeFromCart(CartItem cardItem) {
+  void removeFromCart(CartItem cartItem) {
     // Find that item in list cart
-    int carIndex = _cart.indexOf(cardItem);
+    int cartIndex = _cart.indexOf(cartItem);
     // If have, then check quantity
-    if (carIndex != 1) {
+    if (cartIndex != -1) {
       // If quantity have more one, then decrease it
-      if (_cart[carIndex].quantity > 1) {
-        _cart[carIndex].quantity--;
+      if (_cart[cartIndex].quantity > 1) {
+        _cart[cartIndex].quantity--;
       }
       // Otherwise, remove that item from cart
       else {
-        _cart.removeAt(carIndex);
+        _cart.removeAt(cartIndex);
       }
       // Update UI
       notifyListeners();
