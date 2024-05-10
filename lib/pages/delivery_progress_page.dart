@@ -1,20 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_receipt.dart';
+import 'package:food_delivery_app/models/restaurant.dart';
+import 'package:food_delivery_app/services/database/firestore.dart';
+import 'package:provider/provider.dart';
 
-class DeliveryProgressPage extends StatelessWidget {
+class DeliveryProgressPage extends StatefulWidget {
   const DeliveryProgressPage({super.key});
+
+  @override
+  State<DeliveryProgressPage> createState() => _DeliveryProgressPageState();
+}
+
+class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
+  /* ------------------------------- Variable ------------------------------ */
+
+  // Get access to Database
+  FirestoreService db = FirestoreService();
+
+  /* ----------------------------------------------------------------------- */
+
+  @override
+  void initState() {
+    super.initState();
+
+    // If we get to this page
+    // Submit order to Firestore Database
+    String receipt = context.read<Restaurant>().displayCartReceipt();
+    db.saveOrderToDatabase(receipt);
+  }
+
+  /* ----------------------------------------------------------------------- */
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       /* ----------------------------- Top App ----------------------------- */
       appBar: AppBar(
-        title: const Text('Delivery in progress...'),
         backgroundColor: Colors.transparent,
       ),
       /* ----------------------------- Body App ---------------------------- */
-      body: const Column(
-        children: [
+      body: ListView(
+        children: const [
           MyReceipt(),
         ],
       ),
@@ -22,8 +48,6 @@ class DeliveryProgressPage extends StatelessWidget {
       bottomNavigationBar: _buildBottomNavBar(context),
     );
   }
-
-  /* -------------------------------- Widget ------------------------------- */
 
   /// Custom Bottom Nav Bar - Message / Call delivery driver
   Widget _buildBottomNavBar(BuildContext context) {

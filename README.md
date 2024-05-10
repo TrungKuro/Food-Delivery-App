@@ -2,5 +2,5 @@
 
 ### Tài khoản:
 
-> User: admin@gmail.com
-> Pass: admin@123
+> - User: admin@gmail.com
+> - Pass: admin@123
