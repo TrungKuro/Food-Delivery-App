@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_drawer_title.dart';
 import 'package:food_delivery_app/pages/settings_page.dart';
+import 'package:food_delivery_app/services/auth/auth_service.dart';
 
 class MyDrawer extends StatelessWidget {
+  /* ------------------------------- Function ------------------------------ */
+
+  /// Xử lý phần đăng xuất
+  void logout() {
+    // Get auth service
+    final authService = AuthService();
+
+    authService.signOut();
+  }
+
+  /* ----------------------------------------------------------------------- */
+
   const MyDrawer({super.key});
+
+  /* ----------------------------------------------------------------------- */
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +68,7 @@ class MyDrawer extends StatelessWidget {
           MyDrawerTitle(
             text: 'L O G O U T',
             icon: Icons.logout,
-            onTap: () {},
+            onTap: logout, //!
           ),
           const SizedBox(height: 25),
         ],

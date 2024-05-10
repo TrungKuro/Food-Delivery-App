@@ -1,3 +1,6 @@
 # food_delivery_app
 
-A new Flutter project.
+### Tài khoản:
+
+> User: admin@gmail.com
+> Pass: admin@123

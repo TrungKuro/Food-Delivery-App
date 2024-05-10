@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_textfield.dart';
-import 'package:food_delivery_app/pages/home_page.dart';
+import 'package:food_delivery_app/services/auth/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   /* ------------------------------- Variable ------------------------------ */
@@ -30,15 +30,24 @@ class _LoginPageState extends State<LoginPage> {
   /* ------------------------------- Function ------------------------------ */
 
   /// Xử lý phần đăng nhập
-  void login() {
-    // Điền phần xác thực vào đây
+  void login() async {
+    // Get auth service
+    final authService = AuthService();
 
-    // Sau đó chuyển hướng đến trang HomePage
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ));
+    // Try sign in
+    try {
+      await authService.signInWithEmailPassword(emailController.text, passwordController.text);
+    }
+    // Display any errors
+    catch (e) {
+      showDialog(
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
   }
 
   /* ----------------------------------------------------------------------- */
@@ -83,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 25),
             // SIGN IN (BUTTON)
             MyButton(
-              onTap: login,
+              onTap: login, //!
               text: 'Sign In',
             ),
             const SizedBox(height: 25),
